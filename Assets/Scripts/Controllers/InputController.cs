@@ -19,16 +19,19 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     [HideInInspector] public UnityEvent onPress = new UnityEvent();
     [HideInInspector] public UnityEvent onRelease = new UnityEvent();
+    [HideInInspector] public HitEvent hitEvent = new HitEvent(); 
 
     #region RaycastTouch
     public void OnPointerDown(PointerEventData _eventData)
     {
         pointerEventData = _eventData;
+        onPress.Invoke();
     }
 
     public void OnPointerUp(PointerEventData _eventData)
     {
         pointerEventData = null;
+        onRelease.Invoke();
     }
 
     public RaycastHit hit;
@@ -42,6 +45,9 @@ public class InputController : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         ray = CameraController.instance.cam.ScreenPointToRay(pointerEventData.position + rayOffset);
 
         Physics.Raycast(ray, out hit);
+
+        if(hit.collider != null) hitEvent.Invoke(hit);       
     }
     #endregion
+    public class HitEvent : UnityEvent<RaycastHit> { }
 }

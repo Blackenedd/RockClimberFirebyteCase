@@ -10,7 +10,6 @@ public class Animations : MonoBehaviour
     {
         mAnimator = GetComponent<Animator>();
     }
-
     public void Idle()
     {
         mAnimator.SetTrigger("Idle");

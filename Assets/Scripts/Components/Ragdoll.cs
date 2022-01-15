@@ -7,9 +7,12 @@ public class Ragdoll : MonoBehaviour
 {
     private List<Rigidbody> rigidbodies;
 
+    private Rigidbody hip;
+
     public void Construct()
     {
         rigidbodies = GetComponentsInChildren<Rigidbody>().Where(x => x.gameObject != this.gameObject).ToList();
+        hip = rigidbodies[0];
         SetSpecs();
     }
     public void SetSpecs()
@@ -18,9 +21,10 @@ public class Ragdoll : MonoBehaviour
         {
             x.gameObject.layer = 3;
             x.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            x.constraints = RigidbodyConstraints.FreezePositionZ;
         });
     }
-    public void Active()
+    public void Enable()
     {
         rigidbodies.ForEach(x => 
         {
@@ -35,5 +39,11 @@ public class Ragdoll : MonoBehaviour
             x.isKinematic = true;
             x.GetComponent<Collider>().isTrigger = true;
         });
+    }
+    public void LaunchRagdoll(Vector3 point)
+    {
+        Vector3 direction = (point - hip.position).normalized;
+
+        rigidbodies.ForEach(x => x.AddForce(direction * 30));
     }
 }

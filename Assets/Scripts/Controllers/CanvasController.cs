@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class CanvasController : MonoBehaviour
 {
@@ -28,11 +29,14 @@ public class CanvasController : MonoBehaviour
     }
     public void OnStartButtonClicked()
     {
-        GameController.instance.StartLevel();
-        ClosePanel(startPanel);
+        ClosePanel(startPanel,() => 
+        {
+            startPanel.gameObject.SetActive(false);
+            GameController.instance.StartLevel();
+        });
     }
-    public void ClosePanel(CanvasGroup panel)
+    public void ClosePanel(CanvasGroup panel,UnityAction onComplete = null)
     {
-        panel.DOFade(0, 0.5f);
+        panel.DOFade(0, 0.5f).OnComplete(() => onComplete?.Invoke());
     }
 }

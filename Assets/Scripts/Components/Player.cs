@@ -47,7 +47,16 @@ public class Player : MonoBehaviour
 
             animations.Disable();
             ragdoll.Enable();
-            ragdoll.LaunchRagdoll(pos);
+
+            if (GameController.instance.settings.Mechanic == GameSettings.Mechanics.Launching)
+            {
+                ragdoll.LaunchRagdoll(pos);
+            }
+            else
+            {
+                ragdoll.LerpRagdoll(pos);
+            }
+
             playerState = States.Launching;
 
         }

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ae1178141cb7a0419d1d1d8464c6105, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  fov: 0
+  Mechanic: 0
+  launchingForce: 35

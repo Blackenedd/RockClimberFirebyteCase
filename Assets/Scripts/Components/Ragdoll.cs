@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
 
 public class Ragdoll : MonoBehaviour
 {
@@ -44,6 +44,14 @@ public class Ragdoll : MonoBehaviour
     {
         Vector3 direction = (point - hip.position).normalized;
 
-        rigidbodies.ForEach(x => x.AddForce(direction * 30));
+        rigidbodies.ForEach(x => x.AddForce(direction * GameController.instance.settings.launchingForce));
+    }
+    public void LerpRagdoll(Vector3 point)
+    {
+        hip.isKinematic = true;
+        hip.transform.DOMove(point, 0.7f).SetEase(Ease.OutQuad).OnComplete(() => 
+        {
+            hip.isKinematic = false;
+        });
     }
 }

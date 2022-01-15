@@ -17,12 +17,9 @@ public class CanvasController : MonoBehaviour
     #endregion
 
     [Header("Panels")]
-
     [SerializeField] private CanvasGroup startPanel;
 
-
     [Header("Buttons")]
-
     [SerializeField] private Button startButton;
 
     private void Start()

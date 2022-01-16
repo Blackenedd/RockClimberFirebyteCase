@@ -569,11 +569,30 @@ MonoBehaviour:
   startEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &120849296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 773793c81718c3847890ef1a816fcab4, type: 3}
+  m_PrefabInstance: {fileID: 1699264249}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &120849299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 773793c81718c3847890ef1a816fcab4, type: 3}
   m_PrefabInstance: {fileID: 1699264249}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &120849300
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120849296}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7906526155955632264, guid: 773793c81718c3847890ef1a816fcab4, type: 3}
 --- !u!1001 &128051784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1038,11 +1057,30 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 239907663}
   m_Mesh: {fileID: -686318331032246733, guid: 8127ddd4d057ec046ac2ab0461743cd7, type: 3}
+--- !u!1 &283751544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3c71644e8e2e87e478e5cbb8bbbe95d3, type: 3}
+  m_PrefabInstance: {fileID: 558289768}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &283751547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3c71644e8e2e87e478e5cbb8bbbe95d3, type: 3}
   m_PrefabInstance: {fileID: 558289768}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &283751548
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283751544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1395367094650441684, guid: 3c71644e8e2e87e478e5cbb8bbbe95d3, type: 3}
 --- !u!1 &312287854
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,6 +1674,7 @@ GameObject:
   - component: {fileID: 413318509}
   - component: {fileID: 413318507}
   - component: {fileID: 413318508}
+  - component: {fileID: 413318511}
   m_Layer: 6
   m_Name: Rock (3)
   m_TagString: Rock
@@ -1731,6 +1770,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413318505}
   m_Mesh: {fileID: 544721496581875404, guid: 181b6ae9fd82aa0408d373db82f74a02, type: 3}
+--- !u!54 &413318511
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413318505}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &464243756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,6 +1924,7 @@ GameObject:
   - component: {fileID: 479301030}
   - component: {fileID: 479301028}
   - component: {fileID: 479301029}
+  - component: {fileID: 479301032}
   m_Layer: 6
   m_Name: Rock (5)
   m_TagString: Rock
@@ -1964,6 +2020,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479301026}
   m_Mesh: {fileID: 544721496581875404, guid: 181b6ae9fd82aa0408d373db82f74a02, type: 3}
+--- !u!54 &479301032
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479301026}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &489218328
 GameObject:
   m_ObjectHideFlags: 0
@@ -4072,6 +4144,7 @@ GameObject:
   - component: {fileID: 890138529}
   - component: {fileID: 890138531}
   - component: {fileID: 890138528}
+  - component: {fileID: 890138532}
   m_Layer: 6
   m_Name: Rock
   m_TagString: Rock
@@ -4167,6 +4240,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7557c842316903e49be2fdc7b608a9b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &890138532
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890138526}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &903668760
 GameObject:
   m_ObjectHideFlags: 0
@@ -5001,11 +5090,30 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087615721}
   m_Mesh: {fileID: 544721496581875404, guid: 181b6ae9fd82aa0408d373db82f74a02, type: 3}
+--- !u!1 &1115717983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 27ce66cd782ccd74ba221fb361fb61c0, type: 3}
+  m_PrefabInstance: {fileID: 601594399}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1115717986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 27ce66cd782ccd74ba221fb361fb61c0, type: 3}
   m_PrefabInstance: {fileID: 601594399}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &1115717987
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115717983}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8971355165230693711, guid: 27ce66cd782ccd74ba221fb361fb61c0, type: 3}
 --- !u!1 &1146978022
 GameObject:
   m_ObjectHideFlags: 0
@@ -6038,6 +6146,7 @@ GameObject:
   - component: {fileID: 1378214917}
   - component: {fileID: 1378214919}
   - component: {fileID: 1378214916}
+  - component: {fileID: 1378214920}
   m_Layer: 6
   m_Name: Rock
   m_TagString: Rock
@@ -6133,6 +6242,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7557c842316903e49be2fdc7b608a9b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &1378214920
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378214914}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1381970642
 GameObject:
   m_ObjectHideFlags: 0
@@ -6456,11 +6581,30 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468743668}
   m_Mesh: {fileID: -686318331032246733, guid: 8127ddd4d057ec046ac2ab0461743cd7, type: 3}
+--- !u!1 &1529839797 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e70231cced7e0145b440808401c3761, type: 3}
+  m_PrefabInstance: {fileID: 570032675}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1529839800 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5e70231cced7e0145b440808401c3761, type: 3}
   m_PrefabInstance: {fileID: 570032675}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &1529839801
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529839797}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2166525731848340532, guid: 5e70231cced7e0145b440808401c3761, type: 3}
 --- !u!1 &1587032705
 GameObject:
   m_ObjectHideFlags: 0
@@ -8435,9 +8579,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: 0
-  connectEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!95 &919132149429089905
 Animator:
   serializedVersion: 3
@@ -9212,6 +9353,7 @@ GameObject:
   - component: {fileID: 6502182839355907839}
   - component: {fileID: 4494945602373354226}
   - component: {fileID: 4494945602373354225}
+  - component: {fileID: 4494945602373354227}
   m_Layer: 0
   m_Name: mixamorig:LeftHand
   m_TagString: Hand
@@ -9244,6 +9386,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.1
   m_Center: {x: 0, y: 0.07, z: 0}
+--- !u!54 &4494945602373354227
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4494945602373354224}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4890665111685031540
 GameObject:
   m_ObjectHideFlags: 0

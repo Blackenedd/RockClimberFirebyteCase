@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private List<Hand> hands;
 
     [HideInInspector] public States playerState = States.Idle;
-    [HideInInspector] public UnityEvent connectEvent = new UnityEvent();
+    [HideInInspector] public ConnectRockEvent connectEvent = new ConnectRockEvent();
 
 
     private void Awake()
@@ -41,13 +41,15 @@ public class Player : MonoBehaviour
         });
         connectEvent.AddListener(WhenConnected);
     }
-    private void WhenConnected()
+    private void WhenConnected(Rock rock)
     {
         if (playerState == States.Win)
         {
             hands.ForEach(x => x.Disable());
             return;
         }
+
+        ragdoll.ConnectRagdoll(rock.GetComponent<Rigidbody>());
 
         playerState = States.Holding;
     }
@@ -80,6 +82,8 @@ public class Player : MonoBehaviour
     {
         if (hit.collider.CompareTag("Rock") && (playerState != States.Launching && playerState != States.Win))
         {
+            ragdoll.DisconnectRagdoll();
+
             hands.ForEach(x => x.Release());
 
             Vector3 pos = hit.collider.transform.position;
@@ -108,4 +112,6 @@ public class Player : MonoBehaviour
         Holding,
         Win
     }
+
+    public class ConnectRockEvent : UnityEvent<Rock> { }
 }

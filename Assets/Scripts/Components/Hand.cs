@@ -5,34 +5,14 @@ public class Hand : MonoBehaviour
 {
     private Player player;
 
-    private List<Transform> joints = new List<Transform>();
-    private Transform rock;
-    
-    private Vector3 originalLocalPosition;
+    private Rigidbody rock;
+    private ConfigurableJoint cj;
 
     private bool connected = false;
 
     private void Start()
     {
         player = GetComponentInParent<Player>();
-        joints.Add(transform.parent);
-        joints.Add(transform.parent.parent);
-        originalLocalPosition = transform.localPosition;
-    }
-    private void LateUpdate()
-    {
-        if (joints.Count != 0 && connected)
-        {
-            for(int i = 1; i < joints.Count + 1; i++)
-            {
-                joints[i - 1].position = rock.position + Vector3.down * i * 0.1f;
-                joints[i - 1].rotation = Quaternion.Euler(90, 0, 0);
-            }    
-        }
-        if(rock != null)
-        {
-            transform.position = rock.position;
-        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -41,28 +21,43 @@ public class Hand : MonoBehaviour
     public void Connect(Rock _rock)
     {
         _rock.GotConnect();
+        rock = _rock.GetComponent<Rigidbody>();
 
-        rock = _rock.transform;
+        cj = gameObject.AddComponent<ConfigurableJoint>();
 
-        joints.ForEach(x => x.GetComponent<Rigidbody>().isKinematic = true);
+        cj.connectedBody = rock;
 
-        player.connectEvent.Invoke();
+        cj.xMotion = cj.yMotion = cj.zMotion = cj.angularXMotion = cj.angularYMotion = cj.angularZMotion = ConfigurableJointMotion.Locked;
 
+        cj.autoConfigureConnectedAnchor = false;
+        cj.connectedAnchor = Vector3.zero;
+        cj.anchor = Vector3.zero;
+
+        player.connectEvent.Invoke(_rock);
         connected = true;
     }
     public void Disable()
     {
         GetComponent<Collider>().enabled = false;
+
+        if (cj != null) 
+        {
+            Destroy(cj);
+            Destroy(GetComponent<Rigidbody>());
+        }
+        
         connected = false;
-        transform.localPosition = originalLocalPosition;
-        joints.ForEach(x => x.GetComponent<Rigidbody>().isKinematic = false);
         rock = null;
     }
     public void Release()
     {
+        if (cj != null)
+        {
+            Destroy(cj);
+            Destroy(GetComponent<Rigidbody>());
+        }
+
         connected = false;
-        joints.ForEach(x => x.GetComponent<Rigidbody>().isKinematic = false);
-        transform.localPosition = originalLocalPosition;
         rock = null;
     }
 }

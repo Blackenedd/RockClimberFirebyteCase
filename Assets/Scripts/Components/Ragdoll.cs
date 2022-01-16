@@ -8,6 +8,7 @@ public class Ragdoll : MonoBehaviour
     private List<Rigidbody> rigidbodies;
 
     private Rigidbody hip;
+    private ConfigurableJoint cjHip;
 
     private List<OriginalValues> originalValues = new List<OriginalValues>();
 
@@ -89,6 +90,31 @@ public class Ragdoll : MonoBehaviour
         {
             rigidbodies[i].transform.localPosition = originalValues[i].position;
             rigidbodies[i].transform.localRotation = originalValues[i].rotation;
+        }
+    }
+
+    public void ConnectRagdoll(Rigidbody rb)
+    {
+        cjHip = hip.gameObject.AddComponent<ConfigurableJoint>();
+
+        cjHip.connectedBody = rb;
+        cjHip.xMotion = cjHip.yMotion = cjHip.zMotion = ConfigurableJointMotion.Limited;
+        cjHip.angularXMotion = cjHip.angularYMotion = cjHip.angularZMotion = ConfigurableJointMotion.Locked;
+
+        cjHip.autoConfigureConnectedAnchor = false;
+        cjHip.connectedAnchor = Vector3.zero;
+        cjHip.anchor = Vector3.zero;
+
+        SoftJointLimit limit = new SoftJointLimit();
+        limit.limit = 0.2f;
+
+        cjHip.linearLimit = limit;
+    }
+    public void DisconnectRagdoll()
+    {
+        if (cjHip != null)
+        {
+            Destroy(cjHip);
         }
     }
 

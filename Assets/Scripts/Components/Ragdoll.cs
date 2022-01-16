@@ -21,7 +21,23 @@ public class Ragdoll : MonoBehaviour
         {
             x.gameObject.layer = 3;
             x.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            x.interpolation = RigidbodyInterpolation.Extrapolate;
+
             x.constraints = RigidbodyConstraints.FreezePositionZ;
+
+            // converts to configurablejoint
+            {
+                //if(x.GetComponent<CharacterJoint>() != null)
+                //{
+                //    ConfigurableJoint cj = x.gameObject.AddComponent<ConfigurableJoint>();
+                //    cj.connectedBody = x.gameObject.GetComponent<CharacterJoint>().connectedBody;
+
+                //    cj.xMotion = cj.yMotion = cj.zMotion = ConfigurableJointMotion.Locked;
+                //    cj.angularXMotion = cj.angularYMotion = cj.angularZMotion = ConfigurableJointMotion.Limited;
+
+                //    Destroy(x.GetComponent<CharacterJoint>());
+                //}
+            }
         });
     }
     public void Enable()

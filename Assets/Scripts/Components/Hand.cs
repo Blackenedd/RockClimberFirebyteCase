@@ -1,30 +1,33 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Hand : MonoBehaviour
 {
     private Player player;
 
-    private Vector3 targetPosition;
-    private Vector3 targetRotation;
-
-    private Transform joint;
+    private List<Transform> joints = new List<Transform>();
     private Transform rock;
-
+    
     private Vector3 originalLocalPosition;
+
+    private bool connected = false;
 
     private void Start()
     {
-        targetPosition = targetRotation = Vector3.zero;
         player = GetComponentInParent<Player>();
-        joint = transform.parent;
+        joints.Add(transform.parent);
+        joints.Add(transform.parent.parent);
         originalLocalPosition = transform.localPosition;
     }
     private void LateUpdate()
     {
-        if (joint != null && targetPosition != Vector3.zero)
+        if (joints.Count != 0 && connected)
         {
-            joint.position = targetPosition;
-            joint.eulerAngles = targetRotation;
+            for(int i = 1; i < joints.Count + 1; i++)
+            {
+                joints[i - 1].position = rock.position + Vector3.down * i * 0.1f;
+                joints[i - 1].rotation = Quaternion.Euler(90, 0, 0);
+            }    
         }
         if(rock != null)
         {
@@ -41,22 +44,20 @@ public class Hand : MonoBehaviour
 
         rock = _rock.transform;
 
-        targetPosition = joint.position;
-        targetRotation = joint.eulerAngles;
-
-        joint.GetComponent<Rigidbody>().isKinematic = true;
+        joints.ForEach(x => x.GetComponent<Rigidbody>().isKinematic = true);
 
         player.connectEvent.Invoke();
 
+        connected = true;
     }
     public void Release()
     {
-        targetPosition = targetRotation = Vector3.zero;
-
         transform.localPosition = originalLocalPosition;
 
         rock = null;
 
-        joint.GetComponent<Rigidbody>().isKinematic = false;
+        joints.ForEach(x => x.GetComponent<Rigidbody>().isKinematic = true);
+
+        connected = false;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -27,8 +28,10 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        GameController.instance.startEvent.AddListener(() => 
+        GameController.instance.startEvent.AddListener(() =>
         {
+            CameraController.instance.SetOffset(0, 2, 0);
+            CameraController.instance.SetValues(-7.5f, 0, 0);
             InputController.instance.hitEvent.AddListener(WhenPlayersHitScreen);
         });
         connectEvent.AddListener(WhenConnected);

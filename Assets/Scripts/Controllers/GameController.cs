@@ -28,6 +28,8 @@ public class GameController : MonoBehaviour
     [HideInInspector] public UnityEvent startEvent = new UnityEvent();
     [HideInInspector] public GameFinishEvent finishEvent = new GameFinishEvent();
 
+    private bool finished;
+
     #region LevelOperations
     public void StartLevel()
     {
@@ -35,6 +37,7 @@ public class GameController : MonoBehaviour
     }
     public void FinishLevel(bool completed = true) 
     {
+        if (finished) return; finished = true;
         finishEvent.Invoke(completed);
     }
     public void GetDependencies()

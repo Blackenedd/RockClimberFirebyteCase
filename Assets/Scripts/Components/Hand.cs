@@ -50,14 +50,19 @@ public class Hand : MonoBehaviour
 
         connected = true;
     }
+    public void Disable()
+    {
+        GetComponent<Collider>().enabled = false;
+        connected = false;
+        transform.localPosition = originalLocalPosition;
+        joints.ForEach(x => x.GetComponent<Rigidbody>().isKinematic = false);
+        rock = null;
+    }
     public void Release()
     {
-        transform.localPosition = originalLocalPosition;
-
-        rock = null;
-
-        joints.ForEach(x => x.GetComponent<Rigidbody>().isKinematic = true);
-
         connected = false;
+        joints.ForEach(x => x.GetComponent<Rigidbody>().isKinematic = false);
+        transform.localPosition = originalLocalPosition;
+        rock = null;
     }
 }

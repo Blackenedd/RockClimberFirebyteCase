@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public States playerState = States.Idle;
     [HideInInspector] public UnityEvent connectEvent = new UnityEvent();
 
+
     private void Awake()
     {
         ragdoll = gameObject.AddComponent<Ragdoll>();
@@ -34,15 +35,50 @@ public class Player : MonoBehaviour
             CameraController.instance.SetValues(-7.5f, 0, 0);
             InputController.instance.hitEvent.AddListener(WhenPlayersHitScreen);
         });
+        GameController.instance.finishEvent.AddListener((bool win) => 
+        {
+            WhenWin();
+        });
         connectEvent.AddListener(WhenConnected);
     }
-    private void WhenConnected() 
+    private void WhenConnected()
     {
+        if (playerState == States.Win)
+        {
+            hands.ForEach(x => x.Disable());
+            return;
+        }
+
         playerState = States.Holding;
+    }
+    private void WhenWin()
+    {
+        if (playerState == States.Win) return;
+        playerState = States.Win;
+
+        hands.ForEach(x => x.Disable());
+        ragdoll.Disable();
+        
+        ResetPivot();
+        
+        animations.Enable();
+        animations.Flip();
+        
+        Transform flipTarget = Level.instance.finish.playerFinishPosition;
+
+        transform.DOMoveX(flipTarget.position.x, 1f);
+        transform.DOMoveY(flipTarget.position.y + 1f, 0.5f).OnComplete(() => transform.DOMoveY(flipTarget.position.y,0.5f));
+        transform.DOMoveZ(flipTarget.position.z, 1f);
+    }
+    private void ResetPivot()
+    {
+        Transform hip = GetComponentInChildren<Rigidbody>().transform;
+        transform.position = hip.position;
+        hip.localPosition = Vector3.zero;
     }
     private void WhenPlayersHitScreen(RaycastHit hit)
     {
-        if (hit.collider.CompareTag("Rock") && playerState != States.Launching)
+        if (hit.collider.CompareTag("Rock") && (playerState != States.Launching && playerState != States.Win))
         {
             hands.ForEach(x => x.Release());
 
@@ -69,6 +105,7 @@ public class Player : MonoBehaviour
     {
         Idle,
         Launching,
-        Holding
+        Holding,
+        Win
     }
 }

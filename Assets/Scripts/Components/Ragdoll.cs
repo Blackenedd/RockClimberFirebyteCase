@@ -9,6 +9,8 @@ public class Ragdoll : MonoBehaviour
 
     private Rigidbody hip;
 
+    private List<OriginalValues> originalValues = new List<OriginalValues>();
+
     public void Construct()
     {
         rigidbodies = GetComponentsInChildren<Rigidbody>().Where(x => x.gameObject != this.gameObject).ToList();
@@ -39,6 +41,15 @@ public class Ragdoll : MonoBehaviour
                 //}
             }
         });
+        for (int i = 0; i < rigidbodies.Count; i++)
+        {
+            OriginalValues values = new OriginalValues();
+
+            values.position = rigidbodies[i].transform.localPosition;
+            values.rotation = rigidbodies[i].transform.localRotation;
+
+            originalValues.Add(values);
+        }
     }
     public void Enable()
     {
@@ -55,6 +66,8 @@ public class Ragdoll : MonoBehaviour
             x.isKinematic = true;
             x.GetComponent<Collider>().isTrigger = true;
         });
+
+        ResetPositions();
     }
     public void LaunchRagdoll(Vector3 point)
     {
@@ -69,5 +82,20 @@ public class Ragdoll : MonoBehaviour
         {
             hip.isKinematic = false;
         });
+    }
+    private void ResetPositions()
+    {
+        for(int i = 0; i < rigidbodies.Count; i++)
+        {
+            rigidbodies[i].transform.localPosition = originalValues[i].position;
+            rigidbodies[i].transform.localRotation = originalValues[i].rotation;
+        }
+    }
+
+    [System.Serializable]
+    public class OriginalValues
+    {
+        public Vector3 position;
+        public Quaternion rotation;
     }
 }

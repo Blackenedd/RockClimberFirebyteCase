@@ -18,6 +18,10 @@ public class Animations : MonoBehaviour
     {
         mAnimator.SetTrigger("Dance");
     }
+    public void Flip()
+    {
+        mAnimator.SetTrigger("Flip");
+    }
     public void Disable()
     {
         mAnimator.enabled = false;

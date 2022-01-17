@@ -68,14 +68,15 @@ public class Player : MonoBehaviour
 
         ResetPivot();
 
+        animations.FixBones();
+
         hands.ForEach(x => x.Disable());
         ragdoll.Disable(() =>
         {
-            animations.Enable();
             animations.FixBones();
-            animations.Flip();
 
-            animations.FixBones();
+            animations.Enable();
+            animations.Flip();
 
             Transform flipTarget = Level.instance.finish.playerFinishPosition;
 
@@ -113,14 +114,7 @@ public class Player : MonoBehaviour
             animations.Disable();
             ragdoll.Enable();
 
-            if (GameController.instance.settings.Mechanic == GameSettings.Mechanics.Launching)
-            {
-                ragdoll.LaunchRagdoll(pos);
-            }
-            else
-            {
-                ragdoll.LerpRagdoll(pos);
-            }
+            ragdoll.LaunchRagdoll(pos);
 
             playerState = States.Launching;
 

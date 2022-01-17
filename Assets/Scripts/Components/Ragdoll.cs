@@ -69,14 +69,6 @@ public class Ragdoll : MonoBehaviour
 
         rigidbodies.ForEach(x => x.AddForce(direction * GameController.instance.settings.launchingForce));
     }
-    public void LerpRagdoll(Vector3 point)
-    {
-        hip.isKinematic = true;
-        hip.transform.DOMove(point, 0.7f).SetEase(Ease.OutQuad).OnComplete(() => 
-        {
-            hip.isKinematic = false;
-        });
-    }
     public void ConnectRagdoll(Rigidbody rb)
     {
         cjHip = hip.gameObject.AddComponent<ConfigurableJoint>();

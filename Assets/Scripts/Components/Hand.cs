@@ -34,23 +34,26 @@ public class Hand : MonoBehaviour
     {
         if (player.playerState == Player.States.Holding) return;
 
-        fastIK.enabled = true;
-
-        _rock.GotConnect();
-        rock = _rock.GetComponent<Rigidbody>();
-
-        if (_rock.type == Rock.Type.red)
+        if(_rock != null)
         {
-            GameController.instance.Delay(1f, () => 
+            fastIK.enabled = true;
+
+            _rock.GotConnect();
+            rock = _rock.GetComponent<Rigidbody>();
+
+            if (_rock.type == Rock.Type.red)
             {
-                player.hitObstacleEvent.Invoke();
-            });
+                GameController.instance.Delay(1f, () =>
+                {
+                    player.hitObstacleEvent.Invoke();
+                });
+            }
+
+            fastIK.SetTarget(_rock.transform);
+
+            player.connectEvent.Invoke(_rock);
+            connected = true;
         }
-
-        fastIK.SetTarget(_rock.transform);
-
-        player.connectEvent.Invoke(_rock);
-        connected = true;
     }
     public void Disable()
     {

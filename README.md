@@ -17,4 +17,6 @@ Obstacles
 Blades blocks or cuts your connection with rocks.
 Red rocks explodes in 1 second
 
+![Alt Text](https://media.giphy.com/media/9txxd4jsomdI2O5g3m/giphy-downsized-large.gif)
+
 

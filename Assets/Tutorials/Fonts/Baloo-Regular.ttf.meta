@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: de5f24b58fdaf4c3e943f6a012e22c25
+labels:
+- CodaSDKIncluded
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Baloo
+  fontNames:
+  - Baloo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b164530cc1a2540f39908531994ecc15, type: 3}
+  - {fileID: 12800000, guid: 29e6194f198a84b5daa5a10fc4bbff10, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

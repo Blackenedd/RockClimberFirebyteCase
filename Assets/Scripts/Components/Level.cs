@@ -16,4 +16,5 @@ public class Level : MonoBehaviour
     }
     #endregion
     public Finish finish;
+    public Player player;
 }

@@ -28,6 +28,7 @@ public class Hand : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Rock")) Connect(other.GetComponent<Rock>());
+        if (other.CompareTag("Ground")) { GameController.instance.FinishLevel(false); }
     }
     public void Connect(Rock _rock)
     {
@@ -37,6 +38,14 @@ public class Hand : MonoBehaviour
 
         _rock.GotConnect();
         rock = _rock.GetComponent<Rigidbody>();
+
+        if (_rock.type == Rock.Type.red)
+        {
+            GameController.instance.Delay(1f, () => 
+            {
+                player.hitObstacleEvent.Invoke();
+            });
+        }
 
         fastIK.SetTarget(_rock.transform);
 
@@ -56,8 +65,9 @@ public class Hand : MonoBehaviour
     }
     public void Release()
     {
+        if(rock != null) rock.GetComponent<Rock>().GotDisconnect();
+        
         fastIK.Target = null;
-
         connected = false;
         rock = null;
     }

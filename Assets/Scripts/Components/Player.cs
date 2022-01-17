@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public States playerState = States.Idle;
     [HideInInspector] public ConnectRockEvent connectEvent = new ConnectRockEvent();
+    [HideInInspector] public UnityEvent hitObstacleEvent = new UnityEvent();
 
     private void Awake()
     {
@@ -38,9 +39,15 @@ public class Player : MonoBehaviour
         });
         GameController.instance.finishEvent.AddListener((bool win) => 
         {
-            WhenWin();
+            if(win) WhenWin();
+            else
+            {
+                hands.ForEach(x => x.Disable());
+                ragdoll.DisconnectRagdoll();
+            }
         });
         connectEvent.AddListener(WhenConnected);
+        hitObstacleEvent.AddListener(WhenHitObstacle);
     }
     private void WhenConnected(Rock rock)
     {
@@ -64,8 +71,8 @@ public class Player : MonoBehaviour
         hands.ForEach(x => x.Disable());
         ragdoll.Disable(() =>
         {
-            animations.FixBones();
             animations.Enable();
+            animations.FixBones();
             animations.Flip();
 
             animations.FixBones();
@@ -77,10 +84,15 @@ public class Player : MonoBehaviour
 
             transform.DOMoveY(flipTarget.position.y + 1f, 0.8f).OnComplete(() => transform.DOMoveY(flipTarget.position.y, 0.5f).OnComplete(() =>
             {
-                animations.FixBones();
                 animations.Dance();
             }));
         });
+    }
+    private void WhenHitObstacle()
+    {
+        playerState = States.Idle;
+        hands.ForEach(x => x.Release());
+        ragdoll.DisconnectRagdoll();
     }
     private void ResetPivot()
     {

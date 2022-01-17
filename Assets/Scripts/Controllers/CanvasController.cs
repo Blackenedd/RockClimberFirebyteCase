@@ -20,6 +20,7 @@ public class CanvasController : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private CanvasGroup startPanel;
     [SerializeField] private CanvasGroup finishPanel;
+    [SerializeField] private CanvasGroup tutorialPanel;
 
     [Header("Buttons")]
     [SerializeField] private Button startButton;
@@ -27,12 +28,13 @@ public class CanvasController : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Button okayButton;
 
-    [SerializeField] private GameObject success;
-    [SerializeField] private GameObject fail;
+    [SerializeField] private GameObject successPanel;
+    [SerializeField] private GameObject failPanel;
 
     private void Start()
     {
         startButton.onClick.AddListener(OnStartButtonClicked);
+        GameController.instance.finishEvent.AddListener(OnGameFinish);
     }
     public void OnStartButtonClicked()
     {
@@ -40,6 +42,16 @@ public class CanvasController : MonoBehaviour
         {
             startPanel.gameObject.SetActive(false);
             GameController.instance.StartLevel();
+
+            tutorialPanel.gameObject.SetActive(true);
+            tutorialPanel.DOFade(1f,0.3f).OnComplete(() => 
+            {
+                tutorialPanel.GetComponent<Button>().onClick.AddListener(() => 
+                {
+                    tutorialPanel.GetComponent<Button>().onClick.RemoveAllListeners();
+                    tutorialPanel.DOFade(0, 0.3f).OnComplete(() => { tutorialPanel.gameObject.SetActive(false); });
+                });
+            });
         });
     }
     public void ClosePanel(CanvasGroup panel,UnityAction onComplete = null)
@@ -49,6 +61,24 @@ public class CanvasController : MonoBehaviour
 
     public void OnGameFinish(bool success)
     {
+        GameController.instance.Delay(1f, () => 
+        {
+            if (success)
+            {
+                successPanel.SetActive(true);
+                finishPanel.gameObject.SetActive(true);
+                finishPanel.DOFade(1, 0.5f);
 
+                continueButton.onClick.AddListener(GameController.instance.RestartScene);
+            }
+            else
+            {
+                failPanel.SetActive(true);
+                finishPanel.gameObject.SetActive(true);
+                finishPanel.DOFade(1, 0.5f);
+
+                okayButton.onClick.AddListener(GameController.instance.RestartScene);
+            }
+        });
     }
 }

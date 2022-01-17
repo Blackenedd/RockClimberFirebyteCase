@@ -13,7 +13,6 @@ public class GameController : MonoBehaviour
         if(instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this);
             GetDependencies();
         }
         else
@@ -38,8 +37,9 @@ public class GameController : MonoBehaviour
     }
     public void FinishLevel(bool completed = true) 
     {
-        if (finished) return; finished = true;
+        if (finished) return; 
         finishEvent.Invoke(completed);
+        finished = true;
     }
     public void GetDependencies()
     {

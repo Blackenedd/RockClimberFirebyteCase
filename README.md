@@ -8,7 +8,7 @@ Time Spent : 24 hours
 
 How to play:
 
-Tyringto climb mountaing and dont hit the obstacles 
+Tyringto climb mountaing and dont hit the obstacles , your hands should connect with rocks , good luck :)
 
 Tap to rocks to jump them.
 

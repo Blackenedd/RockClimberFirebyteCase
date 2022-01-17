@@ -4,7 +4,7 @@
 
 "This project created for Firebyte games Game developer case" 
 
-Time Spent : 20 hours 
+Time Spent : 24 hours 
 
 How to play:
 

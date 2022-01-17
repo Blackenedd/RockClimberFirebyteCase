@@ -12,7 +12,8 @@ Tyringto climb mountaing and dont hit the obstacles
 
 Tap to rocks to jump them.
 
-Obstacles 
+Obstacles
+
 Blades blocks or cuts your connection with rocks.
 Red rocks explodes in 1 second
 

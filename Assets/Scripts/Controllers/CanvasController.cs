@@ -19,9 +19,16 @@ public class CanvasController : MonoBehaviour
 
     [Header("Panels")]
     [SerializeField] private CanvasGroup startPanel;
+    [SerializeField] private CanvasGroup finishPanel;
 
     [Header("Buttons")]
     [SerializeField] private Button startButton;
+
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Button okayButton;
+
+    [SerializeField] private GameObject success;
+    [SerializeField] private GameObject fail;
 
     private void Start()
     {
@@ -38,5 +45,10 @@ public class CanvasController : MonoBehaviour
     public void ClosePanel(CanvasGroup panel,UnityAction onComplete = null)
     {
         panel.DOFade(0, 0.5f).OnComplete(() => onComplete?.Invoke());
+    }
+
+    public void OnGameFinish(bool success)
+    {
+
     }
 }

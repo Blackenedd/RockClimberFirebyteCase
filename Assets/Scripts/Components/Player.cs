@@ -14,18 +14,19 @@ public class Player : MonoBehaviour
     [HideInInspector] public States playerState = States.Idle;
     [HideInInspector] public ConnectRockEvent connectEvent = new ConnectRockEvent();
 
-
     private void Awake()
     {
         ragdoll = gameObject.AddComponent<Ragdoll>();
         animations = gameObject.AddComponent<Animations>();
         hands = GetComponentsInChildren<Hand>().ToList();
-
-        ragdoll.Construct(); 
+        ragdoll.Construct();
         ragdoll.Disable();
-        
+
         animations.Construct();
+
+        animations.Enable();
         animations.Idle();
+        
     }
     private void Start()
     {
@@ -58,19 +59,28 @@ public class Player : MonoBehaviour
         if (playerState == States.Win) return;
         playerState = States.Win;
 
-        hands.ForEach(x => x.Disable());
-        ragdoll.Disable();
-        
         ResetPivot();
-        
-        animations.Enable();
-        animations.Flip();
-        
-        Transform flipTarget = Level.instance.finish.playerFinishPosition;
 
-        transform.DOMoveX(flipTarget.position.x, 1f);
-        transform.DOMoveY(flipTarget.position.y + 1f, 0.5f).OnComplete(() => transform.DOMoveY(flipTarget.position.y,0.5f));
-        transform.DOMoveZ(flipTarget.position.z, 1f);
+        hands.ForEach(x => x.Disable());
+        ragdoll.Disable(() =>
+        {
+            animations.FixBones();
+            animations.Enable();
+            animations.Flip();
+
+            animations.FixBones();
+
+            Transform flipTarget = Level.instance.finish.playerFinishPosition;
+
+            transform.DOMoveX(flipTarget.position.x, 1f);
+            transform.DOMoveZ(flipTarget.position.z, 1f);
+
+            transform.DOMoveY(flipTarget.position.y + 1f, 0.8f).OnComplete(() => transform.DOMoveY(flipTarget.position.y, 0.5f).OnComplete(() =>
+            {
+                animations.FixBones();
+                animations.Dance();
+            }));
+        });
     }
     private void ResetPivot()
     {
@@ -112,6 +122,5 @@ public class Player : MonoBehaviour
         Holding,
         Win
     }
-
     public class ConnectRockEvent : UnityEvent<Rock> { }
 }

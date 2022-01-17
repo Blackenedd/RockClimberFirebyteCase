@@ -1,18 +1,29 @@
 using UnityEngine;
-using System.Collections.Generic;
+using DitzelGames.FastIK;
 
 public class Hand : MonoBehaviour
 {
+    [SerializeField] private Transform pole;
+
     private Player player;
 
     private Rigidbody rock;
-    private ConfigurableJoint cj;
 
     private bool connected = false;
 
+    private FastIKFabric fastIK;
+
+    private Vector3 defaultLocalEulerAngles;
+
     private void Start()
     {
+        defaultLocalEulerAngles = transform.localEulerAngles;
+
         player = GetComponentInParent<Player>();
+        fastIK = gameObject.AddComponent<FastIKFabric>();
+
+        fastIK.ChainLength = 3;
+        fastIK.Pole = pole;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -20,18 +31,14 @@ public class Hand : MonoBehaviour
     }
     public void Connect(Rock _rock)
     {
+        if (player.playerState == Player.States.Holding) return;
+
+        fastIK.enabled = true;
+
         _rock.GotConnect();
         rock = _rock.GetComponent<Rigidbody>();
 
-        cj = gameObject.AddComponent<ConfigurableJoint>();
-
-        cj.connectedBody = rock;
-
-        cj.xMotion = cj.yMotion = cj.zMotion = cj.angularXMotion = cj.angularYMotion = cj.angularZMotion = ConfigurableJointMotion.Locked;
-
-        cj.autoConfigureConnectedAnchor = false;
-        cj.connectedAnchor = Vector3.zero;
-        cj.anchor = Vector3.zero;
+        fastIK.SetTarget(_rock.transform);
 
         player.connectEvent.Invoke(_rock);
         connected = true;
@@ -40,22 +47,16 @@ public class Hand : MonoBehaviour
     {
         GetComponent<Collider>().enabled = false;
 
-        if (cj != null) 
-        {
-            Destroy(cj);
-            Destroy(GetComponent<Rigidbody>());
-        }
-        
+        Destroy(fastIK);
+
+        transform.localEulerAngles = defaultLocalEulerAngles;
+
         connected = false;
         rock = null;
     }
     public void Release()
     {
-        if (cj != null)
-        {
-            Destroy(cj);
-            Destroy(GetComponent<Rigidbody>());
-        }
+        fastIK.Target = null;
 
         connected = false;
         rock = null;

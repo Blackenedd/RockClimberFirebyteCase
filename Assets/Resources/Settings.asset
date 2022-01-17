@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   Mechanic: 1
-  launchingForce: 35
+  launchingForce: 40

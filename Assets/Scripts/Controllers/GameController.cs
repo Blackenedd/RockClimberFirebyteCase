@@ -1,6 +1,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class GameController : MonoBehaviour
 {
@@ -59,6 +60,18 @@ public class GameController : MonoBehaviour
     public void OpenScene(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
+    }
+    #endregion
+
+    #region DelayOperations
+    public void Delay(float _waitTime = 1f , UnityAction onComplete = null)
+    {
+        StartCoroutine(DelayCorutine(_waitTime, onComplete));
+    }
+    private IEnumerator DelayCorutine(float waitTime, UnityAction oc = null)
+    {
+        yield return new WaitForSeconds(waitTime);
+        oc?.Invoke();
     }
     #endregion
 
